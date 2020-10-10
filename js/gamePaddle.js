@@ -12,6 +12,7 @@ class GamePaddle{
     paddleY = 145;
     paddleHeight = 5;
     paddleWidth = 30;
+    paddleRightOffset = 28
 
     constructor(options){
         if(options){
@@ -51,8 +52,19 @@ class GamePaddle{
     }
 
     movePaddle = (event) => {
-        console.log(event);
         let paddlePos = event.offsetX / 3.5;
+        let rightPos = this.rightWall - this.paddleWidth;
+        if(paddlePos + this.paddleWidth > this.rightWall - this.paddleWidth + this.paddleRightOffset){
+            paddlePos = rightPos
+        }
         this.paddleX = paddlePos;
+    }
+
+    getPaddlePos = () =>{
+        return [this.paddleX,this.paddleY];
+    }
+
+    getPaddleSize = () => {
+        return [this.paddleWidth,this.paddleHeight];
     }
 }

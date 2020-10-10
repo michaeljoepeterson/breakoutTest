@@ -68,35 +68,38 @@ class Game{
         },20);
     }
 
-    // initConrols = () => {
-    //     this.canvas.addEventListener('mousemove',(event) => {
-    //         this.movePaddle(event);
-    //     });
-    // }
-
     gameRender = () =>{
+        this.checkPaddleCollision();
         this.gameBall.renderBall();
         this.gamePaddle.renderPaddle();
     }
 
-
-    // renderPaddle = () =>{
-    //     this.canvas2d.beginPath();
-    //     this.canvas2d.rect(this.paddleX, this.paddleY, this.paddleWidth,this.paddleHeight);
-    //     this.canvas2d.fillStyle = "#0095DD";
-    //     this.canvas2d.fill();
-    //     this.canvas2d.closePath();
-    // }
-
-    // movePaddle = (event) => {
-    //     console.log(event);
-    //     let paddlePos = event.offsetX / 3.5;
-    //     this.paddleX = paddlePos;
-    // }
-    
-
     setResizeListener = () =>{
         this.canvasHeight = this.canvas.clientHeight;
         this.canvasWidth = this.canvas.clientWidth;
+    }
+
+    checkPaddleCollision = () => {
+        let ballPos = this.gameBall.getBallPos();
+        let ballSize = this.gameBall.getBallSize();
+        let paddlePos = this.gamePaddle.getPaddlePos();
+        let paddleSize = this.gamePaddle.getPaddleSize();
+
+        let paddleYCollision = paddlePos[1] + ballSize;
+        let paddleXStart = paddlePos[0];
+        let paddleXEnd = paddlePos[0] + paddleSize[0];
+        if(ballPos[1] >= paddleYCollision && ballPos[0] >= paddleXStart && ballPos[0] <= paddleXEnd){
+            console.log('hit paddle');
+            let startDiff = Math.abs(ballPos[0]) - paddleXStart;
+            let endDiff = Math.abs(ballPos[0]) - paddleXEnd;
+            //send ball left
+            if(startDiff <= endDiff){
+                this.gameBall.moveBallLeft()
+            }
+            //send ball right
+            else{
+                this.gameBall.moveBallRight()
+            }
+        }
     }
 }

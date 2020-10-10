@@ -10,6 +10,7 @@ class GameBall{
     leftWall = 0;
     canvas2d;
     renderInterval;
+    hitPaddle = true;
 
     constructor(options){
         if(options){
@@ -38,7 +39,7 @@ class GameBall{
         elementWidth = elementWidth ? elementWidth : this.ballRadius;
         let nextY = this.bally + this.aY;
         let nextX = this.ballx + this.aX;
-
+        
         //top/bottom of canvas
         if(nextY < this.topWall + elementWidth || nextY > this.bottomWall - elementWidth){
             this.aY = -this.aY;
@@ -47,11 +48,18 @@ class GameBall{
         if(nextX > this.rightWall - elementWidth || nextX < this.leftWall + elementWidth){
             this.aX = -this.aX;
         }
-
+        console.log('next y: ',nextY);
+        if(this.bally >= this.bottomWall - elementWidth && !this.hitPaddle){
+            this.bally = 1000;
+            this.aY = 0;
+            this.aX = 0;
+        }
+        this.hitPaddle = false;
     }
 
     renderBall = () =>{
         this.checkCollisionBall();
+        console.log(this.getBallPos(),this.hitPaddle);
         this.canvas2d.beginPath();
         this.canvas2d.arc(this.ballx, this.bally, this.ballRadius, 0, Math.PI*2);
         this.canvas2d.fillStyle = "#0095DD";
@@ -59,5 +67,37 @@ class GameBall{
         this.canvas2d.closePath();
         this.ballx += this.aX;
         this.bally += this.aY;
+    }
+
+    moveBallLeft = (offset) => {
+        this.hitPaddle = true;
+        console.log('move left',this.hitPaddle);
+        if(this.aY < 0){
+            this.aY = -this.aY;
+        }
+        offset = offset ? offset : 0;
+        if(this.aX < 0){
+            this.aX = -this.aX;
+        }
+    }
+
+    moveBallRight = (offset) =>{
+        this.hitPaddle = true;
+        console.log('move right',this.hitPaddle);
+        if(this.aY < 0){
+            this.aY = -this.aY;
+        }
+        offset = offset ? offset : 0;
+        if(this.aX > 0){
+            this.aX = -this.aX;
+        }
+    }
+
+    getBallPos = () => {
+        return [this.ballx,this.bally];
+    }
+
+    getBallSize = () => {
+        return this.ballRadius;
     }
 }
