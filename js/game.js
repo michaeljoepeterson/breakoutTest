@@ -85,7 +85,7 @@ class Game{
         let paddlePos = this.gamePaddle.getPaddlePos();
         let paddleSize = this.gamePaddle.getPaddleSize();
 
-        let paddleYCollision = paddlePos[1];
+        let paddleYCollision = paddlePos[1] + ballSize;
         let paddleXStart = paddlePos[0];
         let paddleXEnd = paddlePos[0] + paddleSize[0];
         if(ballPos[1] >= paddleYCollision && ballPos[0] >= paddleXStart && ballPos[0] <= paddleXEnd){
