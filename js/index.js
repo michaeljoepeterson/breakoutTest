@@ -1,8 +1,23 @@
+game = null;
+
 function init(){
     let gameOptions = {
         canvasId:'breakout-canvas'
     };
-    let game = new Game(gameOptions);
+    game = new Game(gameOptions);
 }
 
-init();
+function restart(){
+    game.gameOver(true);
+    init()
+}
+
+function initPage(){
+    let restartButton = document.getElementById('restart');
+    restartButton.addEventListener('click',() => {
+        restart();
+    });
+    init();
+}
+
+initPage();

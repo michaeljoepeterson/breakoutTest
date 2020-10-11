@@ -10,6 +10,7 @@ class GameBall{
     leftWall = 0;
     canvas2d;
     renderInterval;
+    gameOverCallback;
 
     constructor(options){
         if(options){
@@ -42,10 +43,17 @@ class GameBall{
         //top/bottom of canvas
         if(nextY < this.topWall + elementWidth || nextY > this.bottomWall - elementWidth){
             this.aY = -this.aY;
+            console.log(nextY);
         }
 
         if(nextX > this.rightWall - elementWidth || nextX < this.leftWall + elementWidth){
             this.aX = -this.aX;
+        }
+
+        //check gameover
+        if(nextY > this.bottomWall - elementWidth){
+            console.log('game over');
+            this.gameOverCallback();
         }
 
     }
@@ -62,24 +70,28 @@ class GameBall{
         this.bally += this.aY;
     }
 
-    moveBallLeft = (offset) => {
-        if(this.aY < 0){
+    moveBallLeft = (paddleHeight,offset) => {
+        //debugger
+        //this.bally = this.bally - paddleHeight;
+        //if(this.aY < 0){
             this.aY = -this.aY;
-        }
+        //}
         offset = offset ? offset : 0;
-        if(this.aX < 0){
+        //if(this.aX < 0){
             this.aX = -this.aX;
-        }
+        //}
     }
 
-    moveBallRight = (offset) =>{
-        if(this.aY < 0){
+    moveBallRight = (paddleHeight,offset) =>{
+        //debugger;
+        //this.bally = this.bally - paddleHeight;
+        //if(this.aY < 0){
             this.aY = -this.aY;
-        }
+        //}
         offset = offset ? offset : 0;
-        if(this.aX > 0){
+        //if(this.aX > 0){
             this.aX = -this.aX;
-        }
+        //}
     }
 
     getBallPos = () => {

@@ -18,4 +18,10 @@ html,body{
 .game-container{
     display: flex;
     height: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-container{
+    margin-top: 1em;
 }
