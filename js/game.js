@@ -97,9 +97,9 @@ class Game{
         let paddleXStart = paddlePos[0];
         let paddleXEnd = paddlePos[0] + paddleSize[0];
         if(ballPos[1] >= paddleYCollision && ballPos[0] >= paddleXStart && ballPos[0] <= paddleXEnd){
-            console.log('hit paddle',ballPos);
-            let startDiff = Math.abs(ballPos[0]) - paddleXStart;
-            let endDiff = Math.abs(ballPos[0]) - paddleXEnd;
+            let startDiff = Math.abs(ballPos[0] - paddleXStart);
+            let endDiff = Math.abs(ballPos[0] - paddleXEnd);
+            console.log('hit paddle',startDiff,endDiff);
             //send ball left
             if(startDiff <= endDiff){
                 this.gameBall.moveBallLeft(paddleSize[1])

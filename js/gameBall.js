@@ -73,25 +73,18 @@ class GameBall{
     moveBallLeft = (paddleHeight,offset) => {
         //debugger
         //this.bally = this.bally - paddleHeight;
-        //if(this.aY < 0){
-            this.aY = -this.aY;
-        //}
+        this.aY = -this.aY;
         offset = offset ? offset : 0;
-        //if(this.aX < 0){
-            this.aX = -this.aX;
-        //}
+        this.aX =  -1 * Math.abs(this.aX);
     }
 
     moveBallRight = (paddleHeight,offset) =>{
         //debugger;
         //this.bally = this.bally - paddleHeight;
-        //if(this.aY < 0){
-            this.aY = -this.aY;
-        //}
+
+        this.aY = -this.aY;
         offset = offset ? offset : 0;
-        //if(this.aX > 0){
-            this.aX = -this.aX;
-        //}
+        this.aX = Math.abs(this.aX);
     }
 
     getBallPos = () => {
