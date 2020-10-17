@@ -96,17 +96,24 @@ class Game{
         let paddleYCollision = paddlePos[1] - ballSize;
         let paddleXStart = paddlePos[0];
         let paddleXEnd = paddlePos[0] + paddleSize[0];
+        let paddleMid = (paddleXStart + paddleXEnd) / 2;
+        const offsetAdjust = 2.2
         if(ballPos[1] >= paddleYCollision && ballPos[0] >= paddleXStart && ballPos[0] <= paddleXEnd){
             let startDiff = Math.abs(ballPos[0] - paddleXStart);
             let endDiff = Math.abs(ballPos[0] - paddleXEnd);
-            console.log('hit paddle',startDiff,endDiff);
             //send ball left
             if(startDiff <= endDiff){
-                this.gameBall.moveBallLeft(paddleSize[1])
+                let offset = ballPos[0] - paddleMid;
+                console.log('left offset',offset);
+                let adjustedOffset = offset / offsetAdjust;
+                this.gameBall.moveBallLeft(adjustedOffset);
             }
             //send ball right
             else{
-                this.gameBall.moveBallRight(paddleSize[1])
+                let offset = Math.abs(paddleMid - ballPos[0]);
+                console.log('right offset',offset);
+                let adjustedOffset = offset / offsetAdjust;
+                this.gameBall.moveBallRight(adjustedOffset);
             }
         }
     }

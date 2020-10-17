@@ -11,6 +11,8 @@ class GameBall{
     canvas2d;
     renderInterval;
     gameOverCallback;
+    maxX = 6;
+    minX = 2;
 
     constructor(options){
         if(options){
@@ -43,7 +45,6 @@ class GameBall{
         //top/bottom of canvas
         if(nextY < this.topWall + elementWidth || nextY > this.bottomWall - elementWidth){
             this.aY = -this.aY;
-            console.log(nextY);
         }
 
         if(nextX > this.rightWall - elementWidth || nextX < this.leftWall + elementWidth){
@@ -70,21 +71,20 @@ class GameBall{
         this.bally += this.aY;
     }
 
-    moveBallLeft = (paddleHeight,offset) => {
+    moveBallLeft = (offset) => {
         //debugger
-        //this.bally = this.bally - paddleHeight;
         this.aY = -this.aY;
         offset = offset ? offset : 0;
-        this.aX =  -1 * Math.abs(this.aX);
+        let newAcc = offset ? offset : -1 * Math.abs(this.aX);
+        this.aX =  newAcc;
     }
 
-    moveBallRight = (paddleHeight,offset) =>{
+    moveBallRight = (offset) =>{
         //debugger;
-        //this.bally = this.bally - paddleHeight;
-
         this.aY = -this.aY;
         offset = offset ? offset : 0;
-        this.aX = Math.abs(this.aX);
+        let newAcc = offset ? offset : -1 * Math.abs(this.aX);
+        this.aX =  newAcc;
     }
 
     getBallPos = () => {
